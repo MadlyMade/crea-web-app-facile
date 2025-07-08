@@ -1,0 +1,392 @@
+[
+  {
+    "id": 1,
+    "question": "Secondo l'articolo 240 del trattato sul funzionamento dell'Unione europea, il Coreper è responsabile:",
+    "options": [
+      "del controllo formale dei verbali d'assemblea",
+      "del controllo del pieno rispetto dell'Acquis da parte degli organi legislativi, in sede di discussione",
+      "della preparazione dei lavori del Consiglio dell'Unione europea",
+      "della comunicazione europea, in particolare in riferimento alle delibere e ai comunicati ufficiali"
+    ],
+    "correctAnswer": 2,
+    "subject": "Diritto Europeo",
+    "difficulty": "medium"
+  },
+  {
+    "id": 2,
+    "question": "Quali tra i termini proposti completano correttamente la seguente proporzione? \"ottico : x = barista : y\"",
+    "options": [
+      "x = vista; y = cameriere",
+      "x = effetto; y = speciale",
+      "x = occhio; y = dente",
+      "x = occhiali; y = cocktail"
+    ],
+    "correctAnswer": 3,
+    "subject": "Logica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 3,
+    "question": "Qual è la capitale dell'Australia?",
+    "options": [
+      "Sydney",
+      "Melbourne",
+      "Canberra",
+      "Perth"
+    ],
+    "correctAnswer": 2,
+    "subject": "Geografia",
+    "difficulty": "medium"
+  },
+  {
+    "id": 4,
+    "question": "Chi ha scritto 'La Divina Commedia'?",
+    "options": [
+      "Dante Alighieri",
+      "Francesco Petrarca",
+      "Giovanni Boccaccio",
+      "Ludovico Ariosto"
+    ],
+    "correctAnswer": 0,
+    "subject": "Letteratura",
+    "difficulty": "easy"
+  },
+  {
+    "id": 5,
+    "question": "Qual è la formula chimica dell'acqua?",
+    "options": [
+      "H2O",
+      "CO2",
+      "NaCl",
+      "CH4"
+    ],
+    "correctAnswer": 0,
+    "subject": "Chimica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 6,
+    "question": "In che anno è caduto il Muro di Berlino?",
+    "options": [
+      "1987",
+      "1989",
+      "1991",
+      "1993"
+    ],
+    "correctAnswer": 1,
+    "subject": "Storia",
+    "difficulty": "medium"
+  },
+  {
+    "id": 7,
+    "question": "Qual è il teorema fondamentale del calcolo integrale?",
+    "options": [
+      "Il teorema di Pitagora",
+      "Il teorema che collega derivata e integrale",
+      "Il teorema di Fermat",
+      "Il teorema di Euclide"
+    ],
+    "correctAnswer": 1,
+    "subject": "Matematica",
+    "difficulty": "hard"
+  },
+  {
+    "id": 8,
+    "question": "Chi è l'autore de 'Il Principe'?",
+    "options": [
+      "Niccolò Machiavelli",
+      "Thomas Hobbes",
+      "John Locke",
+      "Jean-Jacques Rousseau"
+    ],
+    "correctAnswer": 0,
+    "subject": "Filosofia",
+    "difficulty": "medium"
+  },
+  {
+    "id": 9,
+    "question": "Qual è l'unità di misura della forza nel Sistema Internazionale?",
+    "options": [
+      "Joule",
+      "Watt",
+      "Newton",
+      "Pascal"
+    ],
+    "correctAnswer": 2,
+    "subject": "Fisica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 10,
+    "question": "In quale anno è stata fondata l'Unione Europea?",
+    "options": [
+      "1957",
+      "1993",
+      "1999",
+      "2004"
+    ],
+    "correctAnswer": 1,
+    "subject": "Diritto Europeo",
+    "difficulty": "medium"
+  },
+  {
+    "id": 11,
+    "question": "Completa la sequenza logica: 2, 4, 8, 16, ?",
+    "options": [
+      "24",
+      "32",
+      "20",
+      "18"
+    ],
+    "correctAnswer": 1,
+    "subject": "Logica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 12,
+    "question": "Qual è il fiume più lungo d'Italia?",
+    "options": [
+      "Tevere",
+      "Po",
+      "Arno",
+      "Adige"
+    ],
+    "correctAnswer": 1,
+    "subject": "Geografia",
+    "difficulty": "easy"
+  },
+  {
+    "id": 13,
+    "question": "Chi ha dipinto 'La Gioconda'?",
+    "options": [
+      "Michelangelo",
+      "Raffaello",
+      "Leonardo da Vinci",
+      "Caravaggio"
+    ],
+    "correctAnswer": 2,
+    "subject": "Arte",
+    "difficulty": "easy"
+  },
+  {
+    "id": 14,
+    "question": "Qual è la velocità della luce nel vuoto?",
+    "options": [
+      "300.000 km/s",
+      "150.000 km/s",
+      "450.000 km/s",
+      "600.000 km/s"
+    ],
+    "correctAnswer": 0,
+    "subject": "Fisica",
+    "difficulty": "medium"
+  },
+  {
+    "id": 15,
+    "question": "Chi è stato il primo uomo sulla Luna?",
+    "options": [
+      "Buzz Aldrin",
+      "Neil Armstrong",
+      "Yuri Gagarin",
+      "John Glenn"
+    ],
+    "correctAnswer": 1,
+    "subject": "Storia",
+    "difficulty": "easy"
+  },
+  {
+    "id": 16,
+    "question": "Qual è la derivata di x²?",
+    "options": [
+      "x",
+      "2x",
+      "x³",
+      "2x²"
+    ],
+    "correctAnswer": 1,
+    "subject": "Matematica",
+    "difficulty": "medium"
+  },
+  {
+    "id": 17,
+    "question": "Chi ha scritto 'Essere e Tempo'?",
+    "options": [
+      "Friedrich Nietzsche",
+      "Martin Heidegger",
+      "Jean-Paul Sartre",
+      "Emmanuel Kant"
+    ],
+    "correctAnswer": 1,
+    "subject": "Filosofia",
+    "difficulty": "hard"
+  },
+  {
+    "id": 18,
+    "question": "Qual è la capitale del Brasile?",
+    "options": [
+      "Rio de Janeiro",
+      "São Paulo",
+      "Brasília",
+      "Salvador"
+    ],
+    "correctAnswer": 2,
+    "subject": "Geografia",
+    "difficulty": "medium"
+  },
+  {
+    "id": 19,
+    "question": "Qual è la formula del teorema di Pitagora?",
+    "options": [
+      "a² + b² = c²",
+      "a + b = c",
+      "a² - b² = c²",
+      "a × b = c²"
+    ],
+    "correctAnswer": 0,
+    "subject": "Matematica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20,
+    "question": "Chi ha composto 'La Nona Sinfonia'?",
+    "options": [
+      "Wolfgang Amadeus Mozart",
+      "Ludwig van Beethoven",
+      "Johann Sebastian Bach",
+      "Franz Schubert"
+    ],
+    "correctAnswer": 1,
+    "subject": "Musica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 21,
+    "question": "Qual è il simbolo chimico dell'oro?",
+    "options": [
+      "Go",
+      "Au",
+      "Ag",
+      "Or"
+    ],
+    "correctAnswer": 1,
+    "subject": "Chimica",
+    "difficulty": "medium"
+  },
+  {
+    "id": 22,
+    "question": "In che anno è iniziata la Prima Guerra Mondiale?",
+    "options": [
+      "1914",
+      "1915",
+      "1916",
+      "1917"
+    ],
+    "correctAnswer": 0,
+    "subject": "Storia",
+    "difficulty": "easy"
+  },
+  {
+    "id": 23,
+    "question": "Qual è la legge di Newton che descrive l'inerzia?",
+    "options": [
+      "Prima legge",
+      "Seconda legge",
+      "Terza legge",
+      "Legge di gravitazione universale"
+    ],
+    "correctAnswer": 0,
+    "subject": "Fisica",
+    "difficulty": "medium"
+  },
+  {
+    "id": 24,
+    "question": "Chi ha fondato la Microsoft?",
+    "options": [
+      "Steve Jobs",
+      "Bill Gates",
+      "Mark Zuckerberg",
+      "Larry Page"
+    ],
+    "correctAnswer": 1,
+    "subject": "Informatica",
+    "difficulty": "easy"
+  },
+  {
+    "id": 25,
+    "question": "Qual è la montagna più alta del mondo?",
+    "options": [
+      "K2",
+      "Monte Bianco",
+      "Monte Everest",
+      "Kilimanjaro"
+    ],
+    "correctAnswer": 2,
+    "subject": "Geografia",
+    "difficulty": "easy"
+  },
+  {
+    "id": 26,
+    "question": "Trova l'intruso: AMORE, ROMA, MORA, ARME, RAMO",
+    "options": [
+      "AMORE",
+      "ROMA",
+      "MORA",
+      "ARME"
+    ],
+    "correctAnswer": 3,
+    "subject": "Logica",
+    "difficulty": "medium"
+  },
+  {
+    "id": 27,
+    "question": "Chi ha scritto 'I Promessi Sposi'?",
+    "options": [
+      "Alessandro Manzoni",
+      "Ugo Foscolo",
+      "Giacomo Leopardi",
+      "Giosuè Carducci"
+    ],
+    "correctAnswer": 0,
+    "subject": "Letteratura",
+    "difficulty": "easy"
+  },
+  {
+    "id": 28,
+    "question": "Qual è la capitale della Francia?",
+    "options": [
+      "Lione",
+      "Marsiglia",
+      "Parigi",
+      "Nizza"
+    ],
+    "correctAnswer": 2,
+    "subject": "Geografia",
+    "difficulty": "easy"
+  },
+  {
+    "id": 29,
+    "question": "Qual è l'elemento chimico più abbondante nell'universo?",
+    "options": [
+      "Elio",
+      "Idrogeno",
+      "Ossigeno",
+      "Carbonio"
+    ],
+    "correctAnswer": 1,
+    "subject": "Chimica",
+    "difficulty": "medium"
+  },
+  {
+    "id": 30,
+    "question": "In che anno è nata la Repubblica Italiana?",
+    "options": [
+      "1945",
+      "1946",
+      "1947",
+      "1948"
+    ],
+    "correctAnswer": 1,
+    "subject": "Storia",
+    "difficulty": "medium"
+  }
+]
