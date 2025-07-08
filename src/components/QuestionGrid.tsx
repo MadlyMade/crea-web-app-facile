@@ -40,17 +40,19 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
     return cn(
       "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105",
       {
-        // Current question
+        // Current question ring
         "ring-2 ring-primary ring-offset-2": isCurrent && !isReviewMode,
         
-        // Status colors
+        // Status colors for review mode
         "bg-green-500 text-white": status === 'correct',
         "bg-red-500 text-white": status === 'incorrect',
-        "bg-blue-500 text-white": status === 'answered' && !correctAnswers.includes(questionNumber) && !incorrectAnswers.includes(questionNumber),
-        "bg-gray-200 text-gray-700 hover:bg-gray-300": status === 'unanswered',
+        
+        // Status colors for active test
+        "bg-blue-500 text-white": status === 'answered' && !isReviewMode,
+        "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600": status === 'unanswered',
         
         // Current question highlight
-        "bg-primary text-primary-foreground": isCurrent && status === 'unanswered' && !isReviewMode,
+        "bg-primary text-primary-foreground": isCurrent && !isReviewMode,
       }
     );
   };

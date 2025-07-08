@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { QuestionGrid } from '@/components/QuestionGrid';
 import { QuestionCard } from '@/components/QuestionCard';
 import { Timer } from '@/components/Timer';
+import { EndTestButton } from '@/components/EndTestButton';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { TestSession, Question, TestConfig, TestHistory } from '@/types/test';
 import questionsData from '@/data/questions.json';
@@ -185,10 +186,14 @@ export const Test: React.FC = () => {
       subjects: currentSession.subjects || []
     };
 
-    // Save to history
-    setTestHistory(prev => [...prev, historyEntry]);
-
-    // Clear current session
+    // Save to history and clear current session
+    setTestHistory(prev => {
+      const newHistory = [...prev, historyEntry];
+      console.log('Saving to history:', historyEntry);
+      console.log('Full history:', newHistory);
+      return newHistory;
+    });
+    
     setCurrentSession(null);
 
     // Navigate to results
@@ -265,6 +270,13 @@ export const Test: React.FC = () => {
                     Salva ed Esci
                   </Button>
                 )}
+                
+                <EndTestButton
+                  onEndTest={completeTest}
+                  testType={currentSession.type}
+                  answeredQuestions={Object.keys(currentSession.answers).length}
+                  totalQuestions={currentSession.questions.length}
+                />
                 
                 {currentSession.timeLimit > 0 && (
                   <Timer
