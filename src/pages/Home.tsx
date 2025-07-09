@@ -4,12 +4,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { BookOpen, GraduationCap, History, User } from 'lucide-react';
+import { BookOpen, GraduationCap, History, User, Settings } from 'lucide-react';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useLocalStorage('examAppUserName', '');
+  const [userName, setUserName] = useLocalStorage('userName', '');
   const [tempUserName, setTempUserName] = useState(userName);
 
   const handleStartExam = () => {
@@ -130,8 +130,8 @@ export const Home: React.FC = () => {
           </Card>
         </div>
 
-        {/* History Button */}
-        <div className="text-center">
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             onClick={handleViewHistory}
             variant="outline"
@@ -140,6 +140,15 @@ export const Home: React.FC = () => {
           >
             <History className="h-5 w-5" />
             Visualizza Storico Test
+          </Button>
+          <Button
+            onClick={() => navigate('/competitions')}
+            variant="outline"
+            size="lg"
+            className="gap-2"
+          >
+            <Settings className="h-5 w-5" />
+            Gestisci Concorsi
           </Button>
         </div>
 

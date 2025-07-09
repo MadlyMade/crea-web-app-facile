@@ -20,14 +20,18 @@ export const Timer: React.FC<TimerProps> = ({
   canPause = false
 }) => {
   const [timeLeft, setTimeLeft] = useState(initialTime);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(!isActive);
 
   useEffect(() => {
     setTimeLeft(initialTime);
   }, [initialTime]);
 
   useEffect(() => {
-    if (!isActive || isPaused || timeLeft <= 0) return;
+    setIsPaused(!isActive);
+  }, [isActive]);
+
+  useEffect(() => {
+    if (isPaused || timeLeft <= 0) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prev) => {
@@ -40,7 +44,7 @@ export const Timer: React.FC<TimerProps> = ({
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [isActive, isPaused, timeLeft, onTimeUp]);
+  }, [isPaused, timeLeft, onTimeUp]);
 
   const formatTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600);

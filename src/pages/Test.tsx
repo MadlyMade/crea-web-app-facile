@@ -22,6 +22,7 @@ export const Test: React.FC = () => {
   const [testHistory, setTestHistory] = useLocalStorage<TestHistory[]>('testHistory', []);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isTimerActive, setIsTimerActive] = useState(true);
+  const [userName, setUserName] = useLocalStorage<string>('userName', '');
 
   // Initialize or resume test session
   useEffect(() => {
@@ -31,10 +32,15 @@ export const Test: React.FC = () => {
     }
 
     if (config && !currentSession) {
-      // Create new test session
+      // Save user name
+      if (config.userName && config.userName !== userName) {
+        setUserName(config.userName);
+      }
+      
+      // Create new test session with unique questions
       const selectedQuestions = getRandomQuestions(config);
       const newSession: TestSession = {
-        id: `test_${Date.now()}`,
+        id: `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         userName: config.userName,
         type: config.type,
         questions: selectedQuestions,
@@ -52,12 +58,13 @@ export const Test: React.FC = () => {
       };
       setCurrentSession(newSession);
       setCurrentQuestionIndex(0);
+      setIsTimerActive(true);
     } else if (currentSession) {
       // Resume existing session
       setCurrentQuestionIndex(currentSession.currentQuestion - 1);
       setIsTimerActive(!currentSession.isPaused);
     }
-  }, [config, currentSession, navigate, setCurrentSession]);
+  }, [config, currentSession, navigate, setCurrentSession, userName, setUserName]);
 
   const getRandomQuestions = (config: TestConfig): Question[] => {
     const availableQuestions = questionsData.filter(q => 
@@ -71,90 +78,6 @@ export const Test: React.FC = () => {
       difficulty: q.difficulty as 'easy' | 'medium' | 'hard'
     }));
   };
-
-  const handleAnswer = useCallback((selectedOption: number) => {
-    if (!currentSession) return;
-
-    const currentQuestion = currentSession.questions[currentQuestionIndex];
-    const isCorrect = selectedOption === currentQuestion.correctAnswer;
-
-    setCurrentSession(prev => {
-      if (!prev) return prev;
-      
-      const newAnswers = { ...prev.answers, [currentQuestion.id]: selectedOption };
-      const newCorrectAnswers = isCorrect && currentSession.type === 'training' 
-        ? [...prev.correctAnswers.filter(id => id !== currentQuestion.id), currentQuestion.id]
-        : prev.correctAnswers;
-      const newIncorrectAnswers = !isCorrect && currentSession.type === 'training'
-        ? [...prev.incorrectAnswers.filter(id => id !== currentQuestion.id), currentQuestion.id]
-        : prev.incorrectAnswers;
-
-      return {
-        ...prev,
-        answers: newAnswers,
-        correctAnswers: newCorrectAnswers,
-        incorrectAnswers: newIncorrectAnswers
-      };
-    });
-
-    if (currentSession.type === 'training') {
-      toast({
-        title: isCorrect ? "Risposta corretta!" : "Risposta errata",
-        description: isCorrect 
-          ? "Ottimo lavoro!" 
-          : `La risposta corretta è: ${String.fromCharCode(65 + currentQuestion.correctAnswer)}`,
-        variant: isCorrect ? "default" : "destructive"
-      });
-    }
-  }, [currentSession, currentQuestionIndex, setCurrentSession, toast]);
-
-  const handleNext = useCallback(() => {
-    if (!currentSession) return;
-
-    if (currentQuestionIndex < currentSession.questions.length - 1) {
-      setCurrentQuestionIndex(prev => prev + 1);
-      setCurrentSession(prev => prev ? { ...prev, currentQuestion: currentQuestionIndex + 2 } : prev);
-    } else {
-      // Test completed
-      completeTest();
-    }
-  }, [currentSession, currentQuestionIndex, setCurrentSession]);
-
-  const handlePrevious = useCallback(() => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prev => prev - 1);
-      setCurrentSession(prev => prev ? { ...prev, currentQuestion: currentQuestionIndex } : prev);
-    }
-  }, [currentQuestionIndex, setCurrentSession]);
-
-  const handleQuestionSelect = useCallback((questionNumber: number) => {
-    setCurrentQuestionIndex(questionNumber - 1);
-    setCurrentSession(prev => prev ? { ...prev, currentQuestion: questionNumber } : prev);
-  }, [setCurrentSession]);
-
-  const handlePause = useCallback(() => {
-    if (currentSession?.type === 'training') {
-      setIsTimerActive(false);
-      setCurrentSession(prev => prev ? { ...prev, isPaused: true } : prev);
-      toast({
-        title: "Test in pausa",
-        description: "Il test è stato messo in pausa. Puoi riprenderlo in qualsiasi momento."
-      });
-    }
-  }, [currentSession, setCurrentSession, toast]);
-
-  const handleResume = useCallback(() => {
-    setIsTimerActive(true);
-    setCurrentSession(prev => prev ? { ...prev, isPaused: false } : prev);
-    toast({
-      title: "Test ripreso",
-      description: "Il test è stato ripreso."
-    });
-  }, [setCurrentSession, toast]);
-
-  const handleTimeUp = useCallback(() => {
-    completeTest();
-  }, []);
 
   const completeTest = useCallback(() => {
     if (!currentSession) return;
@@ -208,6 +131,101 @@ export const Test: React.FC = () => {
       } 
     });
   }, [currentSession, navigate, setCurrentSession, setTestHistory]);
+
+  const handleNext = useCallback(() => {
+    if (!currentSession) return;
+
+    if (currentQuestionIndex < currentSession.questions.length - 1) {
+      setCurrentQuestionIndex(prev => prev + 1);
+      setCurrentSession(prev => prev ? { ...prev, currentQuestion: currentQuestionIndex + 2 } : prev);
+    } else {
+      // Test completed
+      completeTest();
+    }
+  }, [currentSession, currentQuestionIndex, setCurrentSession, completeTest]);
+
+  const handleAnswer = useCallback((selectedOption: number) => {
+    if (!currentSession) return;
+
+    const currentQuestion = currentSession.questions[currentQuestionIndex];
+    const isCorrect = selectedOption === currentQuestion.correctAnswer;
+
+    setCurrentSession(prev => {
+      if (!prev) return prev;
+      
+      const newAnswers = { ...prev.answers, [currentQuestion.id]: selectedOption };
+      const newCorrectAnswers = isCorrect && currentSession.type === 'training' 
+        ? [...prev.correctAnswers.filter(id => id !== currentQuestion.id), currentQuestion.id]
+        : prev.correctAnswers;
+      const newIncorrectAnswers = !isCorrect && currentSession.type === 'training'
+        ? [...prev.incorrectAnswers.filter(id => id !== currentQuestion.id), currentQuestion.id]
+        : prev.incorrectAnswers;
+
+      return {
+        ...prev,
+        answers: newAnswers,
+        correctAnswers: newCorrectAnswers,
+        incorrectAnswers: newIncorrectAnswers
+      };
+    });
+
+    // Show immediate feedback only in training mode
+    if (currentSession.type === 'training') {
+      toast({
+        title: isCorrect ? "Risposta corretta!" : "Risposta errata",
+        description: isCorrect 
+          ? "Ottimo lavoro!" 
+          : `La risposta corretta è: ${String.fromCharCode(65 + currentQuestion.correctAnswer)}`,
+        variant: isCorrect ? "default" : "destructive"
+      });
+    }
+
+    // Auto-advance to next question after a short delay (except on last question)
+    if (currentQuestionIndex < currentSession.questions.length - 1) {
+      setTimeout(() => {
+        if (currentQuestionIndex < currentSession.questions.length - 1) {
+          setCurrentQuestionIndex(prev => prev + 1);
+          setCurrentSession(prev => prev ? { ...prev, currentQuestion: currentQuestionIndex + 2 } : prev);
+        }
+      }, currentSession.type === 'training' ? 1500 : 500); // Longer delay in training to see feedback
+    }
+  }, [currentSession, currentQuestionIndex, setCurrentSession, toast]);
+
+  const handlePrevious = useCallback(() => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(prev => prev - 1);
+      setCurrentSession(prev => prev ? { ...prev, currentQuestion: currentQuestionIndex } : prev);
+    }
+  }, [currentQuestionIndex, setCurrentSession]);
+
+  const handleQuestionSelect = useCallback((questionNumber: number) => {
+    setCurrentQuestionIndex(questionNumber - 1);
+    setCurrentSession(prev => prev ? { ...prev, currentQuestion: questionNumber } : prev);
+  }, [setCurrentSession]);
+
+  const handlePause = useCallback(() => {
+    if (currentSession?.type === 'training') {
+      setIsTimerActive(false);
+      setCurrentSession(prev => prev ? { ...prev, isPaused: true } : prev);
+      toast({
+        title: "Test in pausa",
+        description: "Il test è stato messo in pausa. Puoi riprenderlo in qualsiasi momento."
+      });
+    }
+  }, [currentSession, setCurrentSession, toast]);
+
+  const handleResume = useCallback(() => {
+    setIsTimerActive(true);
+    setCurrentSession(prev => prev ? { ...prev, isPaused: false } : prev);
+    toast({
+      title: "Test ripreso",
+      description: "Il test è stato ripreso."
+    });
+  }, [setCurrentSession, toast]);
+
+  const handleTimeUp = useCallback(() => {
+    completeTest();
+  }, [completeTest]);
 
   const handleSaveAndExit = useCallback(() => {
     if (currentSession?.type === 'training') {
@@ -312,7 +330,7 @@ export const Test: React.FC = () => {
           onNext={handleNext}
           onPrevious={handlePrevious}
           selectedAnswer={currentSession.answers[currentQuestion.id]}
-          showFeedback={currentSession.type === 'training' && currentSession.answers[currentQuestion.id] !== undefined}
+          showFeedback={false} // No immediate feedback in UI - handled by toast
         />
       </div>
     </div>
