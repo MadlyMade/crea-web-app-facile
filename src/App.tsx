@@ -9,6 +9,7 @@ import { TrainingConfig } from "./pages/TrainingConfig";
 import { Test } from "./pages/Test";
 import { Results } from "./pages/Results";
 import { History } from "./pages/History";
+import { CompetitionManager } from "./pages/CompetitionManager";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
