@@ -276,3 +276,5 @@ export const CompetitionManager: React.FC = () => {
     </div>
   );
 };
+
+export default CompetitionManager;
