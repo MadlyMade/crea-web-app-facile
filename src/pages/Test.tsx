@@ -42,6 +42,7 @@ export const Test: React.FC = () => {
       const newSession: TestSession = {
         id: `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         userName: config.userName,
+        competitionId: config.competitionId || 'default',
         type: config.type,
         questions: selectedQuestions,
         answers: {},
@@ -100,13 +101,17 @@ export const Test: React.FC = () => {
     const historyEntry: TestHistory = {
       id: currentSession.id,
       userName: currentSession.userName,
+      competitionId: currentSession.competitionId,
+      competitionName: 'Concorso', // Will be updated with actual competition name
       type: currentSession.type,
       score,
       totalQuestions: currentSession.questions.length,
       correctAnswers: correctCount,
       completedAt: endTime,
       timeSpent,
-      subjects: currentSession.subjects || []
+      subjects: currentSession.subjects || [],
+      questions: currentSession.questions,
+      answers: currentSession.answers
     };
 
     // Save to history and clear current session

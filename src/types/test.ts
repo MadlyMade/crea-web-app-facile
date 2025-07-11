@@ -5,11 +5,24 @@ export interface Question {
   correctAnswer: number;
   subject: string;
   difficulty: 'easy' | 'medium' | 'hard';
+  explanation?: string; // Spiegazione della risposta corretta
+}
+
+export interface Competition {
+  id: string;
+  name: string;
+  description: string;
+  examTimeLimit: number; // in minutes
+  subjects: string[];
+  questions: Question[];
+  isDefault: boolean;
+  createdAt: Date;
 }
 
 export interface TestSession {
   id: string;
   userName: string;
+  competitionId: string; // ID del concorso
   type: 'exam' | 'training';
   questions: Question[];
   answers: Record<number, number>; // questionId -> selectedOption
@@ -33,11 +46,14 @@ export interface TestConfig {
   questionCount: number;
   timeLimit: number; // in minutes
   userName: string;
+  competitionId?: string;
 }
 
 export interface TestHistory {
   id: string;
   userName: string;
+  competitionId: string; // ID del concorso
+  competitionName: string;
   type: 'exam' | 'training';
   score: number;
   totalQuestions: number;
@@ -45,4 +61,6 @@ export interface TestHistory {
   completedAt: Date;
   timeSpent: number; // in seconds
   subjects: string[];
+  questions: Question[]; // Per consultazione
+  answers: Record<number, number>; // Per consultazione
 }
