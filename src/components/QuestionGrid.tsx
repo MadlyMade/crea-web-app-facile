@@ -55,8 +55,10 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
         "bg-green-500 text-white": isReviewMode && status === 'correct',
         "bg-red-500 text-white": isReviewMode && status === 'incorrect',
         
-        // Active test status colors
+        // Active test - exam mode (navy blue for answered)
         "bg-blue-600 text-white": !isReviewMode && status === 'answered' && testType === 'exam',
+        
+        // Active test - training mode with immediate feedback
         "bg-green-500 text-white": !isReviewMode && status === 'answered' && testType === 'training' && correctAnswers.includes(questionNumber),
         "bg-red-500 text-white": !isReviewMode && status === 'answered' && testType === 'training' && incorrectAnswers.includes(questionNumber),
         
