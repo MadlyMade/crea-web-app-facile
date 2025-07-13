@@ -36,7 +36,8 @@
     ],
     "correctAnswer": 2,
     "subject": "Geografia",
-    "difficulty": "medium"
+    "difficulty": "medium",
+    "explanation": "Canberra è la capitale dell'Australia dal 1913, progettata appositamente come capitale federale per bilanciare la rivalità tra Sydney e Melbourne."
   },
   {
     "id": 4,

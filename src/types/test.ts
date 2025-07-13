@@ -5,7 +5,7 @@ export interface Question {
   correctAnswer: number;
   subject: string;
   difficulty: 'easy' | 'medium' | 'hard';
-  explanation?: string; // Spiegazione della risposta corretta
+  explanation?: string;
 }
 
 export interface Competition {

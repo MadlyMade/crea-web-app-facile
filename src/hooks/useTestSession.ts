@@ -166,15 +166,7 @@ export const useTestSession = () => {
       });
     }
 
-    // Auto-advance to next question after a short delay (except on last question)
-    if (currentQuestionIndex < currentSession.questions.length - 1) {
-      setTimeout(() => {
-        if (currentQuestionIndex < currentSession.questions.length - 1) {
-          setCurrentQuestionIndex(prev => prev + 1);
-          setCurrentSession(prev => prev ? { ...prev, currentQuestion: currentQuestionIndex + 2 } : prev);
-        }
-      }, currentSession.type === 'training' ? 1500 : 500); // Longer delay in training to see feedback
-    }
+    // Do NOT auto-advance - let user click Next button to advance
   }, [currentSession, currentQuestionIndex, setCurrentSession, toast]);
 
   const handleNext = useCallback(() => {

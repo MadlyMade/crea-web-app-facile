@@ -34,7 +34,8 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
       }
     }
     
-    // During active test, only show answered/unanswered
+    // During active test - ONLY show current question and answered/unanswered
+    // Do NOT show correct/incorrect colors during active test
     if (answeredQuestions.includes(questionNumber)) {
       return 'answered';
     }
@@ -60,22 +61,9 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
       }
     }
     
-    // Active test - answered questions
+    // Active test - answered questions (always blue for answered during active test)
     if (!isReviewMode && status === 'answered') {
-      if (testType === 'exam') {
-        return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-blue-600 text-white";
-      }
-      // Training mode with immediate feedback - but only show colors if the question has been marked as correct/incorrect
-      if (testType === 'training') {
-        if (correctAnswers.includes(questionNumber)) {
-          return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-green-500 text-white";
-        }
-        if (incorrectAnswers.includes(questionNumber)) {
-          return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-red-500 text-white";
-        }
-        // If answered but not in correct/incorrect arrays, show as neutral answered
-        return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-blue-600 text-white";
-      }
+      return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-blue-600 text-white";
     }
     
     // Unanswered questions (default)

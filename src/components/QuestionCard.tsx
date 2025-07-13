@@ -11,6 +11,7 @@ interface Question {
   correctAnswer: number;
   subject: string;
   difficulty: string;
+  explanation?: string;
 }
 
 interface QuestionCardProps {
@@ -140,27 +141,41 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
           ))}
         </div>
 
-        {showFeedback && (
-          <div className={cn(
-            "p-4 rounded-lg border-2",
-            {
-              "border-green-500 bg-green-50": (tempSelected ?? selectedAnswer) === question.correctAnswer,
-              "border-red-500 bg-red-50": (tempSelected ?? selectedAnswer) !== question.correctAnswer,
-            }
-          )}>
-            <div className="flex items-center gap-2">
-              {(tempSelected ?? selectedAnswer) === question.correctAnswer ? (
-                <>
-                  <Check className="h-5 w-5 text-green-600" />
-                  <span className="font-medium text-green-800">Risposta esatta!</span>
-                </>
-              ) : (
-                <>
-                  <X className="h-5 w-5 text-red-600" />
-                  <span className="font-medium text-red-800">
-                    Risposta errata. La risposta corretta è: {String.fromCharCode(65 + question.correctAnswer)}
-                  </span>
-                </>
+        {showFeedback && selectedAnswer !== undefined && (
+          <div className="space-y-4">
+            <div className={cn(
+              "p-4 rounded-lg border-2",
+              {
+                "border-green-500 bg-green-50": selectedAnswer === question.correctAnswer,
+                "border-red-500 bg-red-50": selectedAnswer !== question.correctAnswer,
+              }
+            )}>
+              <div className="flex items-center gap-2">
+                {selectedAnswer === question.correctAnswer ? (
+                  <>
+                    <Check className="h-5 w-5 text-green-600" />
+                    <span className="font-medium text-green-800">Risposta esatta!</span>
+                  </>
+                ) : (
+                  <>
+                    <X className="h-5 w-5 text-red-600" />
+                    <span className="font-medium text-red-800">Risposta errata</span>
+                  </>
+                )}
+              </div>
+            </div>
+            
+            {/* Show correct answer and explanation */}
+            <div className="bg-blue-50 border-2 border-blue-200 text-blue-800 p-4 rounded-lg">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="font-semibold text-green-600">
+                  ✓ Risposta Corretta: {String.fromCharCode(65 + question.correctAnswer)}
+                </span>
+              </div>
+              {question.explanation && (
+                <p className="text-sm mt-2 leading-relaxed text-blue-700">
+                  {question.explanation}
+                </p>
               )}
             </div>
           </div>
