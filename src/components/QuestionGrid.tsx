@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -9,6 +10,7 @@ interface QuestionGridProps {
   incorrectAnswers: number[];
   onQuestionSelect: (questionNumber: number) => void;
   isReviewMode?: boolean;
+  testType?: 'exam' | 'training';
 }
 
 export const QuestionGrid: React.FC<QuestionGridProps> = ({
@@ -18,15 +20,21 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
   correctAnswers,
   incorrectAnswers,
   onQuestionSelect,
-  isReviewMode = false
+  isReviewMode = false,
+  testType = 'training'
 }) => {
   const getQuestionStatus = (questionNumber: number) => {
-    if (correctAnswers.includes(questionNumber)) {
-      return 'correct';
+    // In review mode, show correct/incorrect status
+    if (isReviewMode) {
+      if (correctAnswers.includes(questionNumber)) {
+        return 'correct';
+      }
+      if (incorrectAnswers.includes(questionNumber)) {
+        return 'incorrect';
+      }
     }
-    if (incorrectAnswers.includes(questionNumber)) {
-      return 'incorrect';
-    }
+    
+    // During active test, only show answered/unanswered
     if (answeredQuestions.includes(questionNumber)) {
       return 'answered';
     }
@@ -43,16 +51,20 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
         // Current question ring
         "ring-2 ring-primary ring-offset-2": isCurrent && !isReviewMode,
         
-        // Status colors for review mode
-        "bg-green-500 text-white": status === 'correct',
-        "bg-red-500 text-white": status === 'incorrect',
+        // Review mode status colors
+        "bg-green-500 text-white": isReviewMode && status === 'correct',
+        "bg-red-500 text-white": isReviewMode && status === 'incorrect',
         
-        // Status colors for active test
-        "bg-blue-500 text-white": status === 'answered' && !isReviewMode,
+        // Active test status colors
+        "bg-blue-600 text-white": !isReviewMode && status === 'answered' && testType === 'exam',
+        "bg-green-500 text-white": !isReviewMode && status === 'answered' && testType === 'training' && correctAnswers.includes(questionNumber),
+        "bg-red-500 text-white": !isReviewMode && status === 'answered' && testType === 'training' && incorrectAnswers.includes(questionNumber),
+        
+        // Unanswered questions
         "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600": status === 'unanswered',
         
-        // Current question highlight
-        "bg-primary text-primary-foreground": isCurrent && !isReviewMode,
+        // Current question highlight (override other colors)
+        "!bg-primary !text-primary-foreground": isCurrent && !isReviewMode,
       }
     );
   };

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { QuestionGrid } from '@/components/QuestionGrid';
 import { QuestionCard } from '@/components/QuestionCard';
@@ -49,6 +50,7 @@ export const Test: React.FC = () => {
           correctAnswers={currentSession.correctAnswers}
           incorrectAnswers={currentSession.incorrectAnswers}
           onQuestionSelect={handleQuestionSelect}
+          testType={currentSession.type}
         />
 
         {/* Question Card */}
