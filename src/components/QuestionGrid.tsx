@@ -45,30 +45,41 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
     const status = getQuestionStatus(questionNumber);
     const isCurrent = questionNumber === currentQuestion;
     
-    return cn(
-      "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105",
-      {
-        // Current question ring
-        "ring-2 ring-primary ring-offset-2": isCurrent && !isReviewMode,
-        
-        // Review mode status colors
-        "bg-green-500 text-white": isReviewMode && status === 'correct',
-        "bg-red-500 text-white": isReviewMode && status === 'incorrect',
-        
-        // Active test - exam mode (navy blue for answered)
-        "bg-blue-600 text-white": !isReviewMode && status === 'answered' && testType === 'exam',
-        
-        // Active test - training mode with immediate feedback
-        "bg-green-500 text-white": !isReviewMode && status === 'answered' && testType === 'training' && correctAnswers.includes(questionNumber),
-        "bg-red-500 text-white": !isReviewMode && status === 'answered' && testType === 'training' && incorrectAnswers.includes(questionNumber),
-        
-        // Unanswered questions
-        "bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600": status === 'unanswered',
-        
-        // Current question highlight (override other colors)
-        "!bg-primary !text-primary-foreground": isCurrent && !isReviewMode,
+    // If it's the current question, always highlight it as primary
+    if (isCurrent && !isReviewMode) {
+      return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-primary text-primary-foreground ring-2 ring-primary ring-offset-2";
+    }
+    
+    // Review mode colors
+    if (isReviewMode) {
+      if (status === 'correct') {
+        return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-green-500 text-white";
       }
-    );
+      if (status === 'incorrect') {
+        return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-red-500 text-white";
+      }
+    }
+    
+    // Active test - answered questions
+    if (!isReviewMode && status === 'answered') {
+      if (testType === 'exam') {
+        return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-blue-600 text-white";
+      }
+      // Training mode with immediate feedback - but only show colors if the question has been marked as correct/incorrect
+      if (testType === 'training') {
+        if (correctAnswers.includes(questionNumber)) {
+          return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-green-500 text-white";
+        }
+        if (incorrectAnswers.includes(questionNumber)) {
+          return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-red-500 text-white";
+        }
+        // If answered but not in correct/incorrect arrays, show as neutral answered
+        return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-blue-600 text-white";
+      }
+    }
+    
+    // Unanswered questions (default)
+    return "w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium cursor-pointer transition-all duration-200 hover:scale-105 bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600";
   };
 
   return (

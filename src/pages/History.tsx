@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { TestHistory } from '@/types/test';
-import { ArrowLeft, Trophy, Clock, BookOpen, GraduationCap } from 'lucide-react';
+import { ArrowLeft, Trophy, Clock, BookOpen, GraduationCap, Eye } from 'lucide-react';
 
 export const History: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +27,10 @@ export const History: React.FC = () => {
   const formatTime = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     return `${minutes} min`;
+  };
+
+  const handleViewTest = (testId: string) => {
+    navigate(`/test-review/${testId}`);
   };
 
   return (
@@ -52,10 +57,15 @@ export const History: React.FC = () => {
                 <p className="text-muted-foreground text-center py-4">Nessun esame completato</p>
               ) : (
                 examHistory.slice(-5).reverse().map((test) => (
-                  <div key={test.id} className="p-3 border rounded-lg bg-card">
+                  <div key={test.id} className="p-3 border rounded-lg bg-card hover:bg-accent/50 transition-colors cursor-pointer" onClick={() => handleViewTest(test.id)}>
                     <div className="flex justify-between items-start mb-2">
                       <div className="text-sm font-medium">{formatDate(test.completedAt)}</div>
-                      <div className="text-lg font-bold text-primary">{test.score}%</div>
+                      <div className="flex items-center gap-2">
+                        <div className="text-lg font-bold text-primary">{test.score}%</div>
+                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                          <Eye className="h-3 w-3" />
+                        </Button>
+                      </div>
                     </div>
                     <div className="text-sm text-muted-foreground space-y-1">
                       <div>Domande: {test.correctAnswers}/{test.totalQuestions}</div>
@@ -80,10 +90,15 @@ export const History: React.FC = () => {
                 <p className="text-muted-foreground text-center py-4">Nessun allenamento completato</p>
               ) : (
                 trainingHistory.slice(-5).reverse().map((test) => (
-                  <div key={test.id} className="p-3 border rounded-lg bg-card">
+                  <div key={test.id} className="p-3 border rounded-lg bg-card hover:bg-accent/50 transition-colors cursor-pointer" onClick={() => handleViewTest(test.id)}>
                     <div className="flex justify-between items-start mb-2">
                       <div className="text-sm font-medium">{formatDate(test.completedAt)}</div>
-                      <div className="text-lg font-bold text-primary">{test.score}%</div>
+                      <div className="flex items-center gap-2">
+                        <div className="text-lg font-bold text-primary">{test.score}%</div>
+                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                          <Eye className="h-3 w-3" />
+                        </Button>
+                      </div>
                     </div>
                     <div className="text-sm text-muted-foreground space-y-1">
                       <div>Domande: {test.correctAnswers}/{test.totalQuestions}</div>
