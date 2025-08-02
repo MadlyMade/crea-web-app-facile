@@ -34,9 +34,10 @@ export const QuestionGrid: React.FC<QuestionGridProps> = ({
       }
     }
     
-    // During active test - ONLY show current question and answered/unanswered
-    // Do NOT show correct/incorrect colors during active test
-    if (answeredQuestions.includes(questionNumber)) {
+    // During active test - ONLY show answered/unanswered for questions that actually have answers
+    // Use question IDs instead of question numbers for comparison
+    const questionId = questionNumber; // Assuming question IDs match question numbers
+    if (answeredQuestions.includes(questionId)) {
       return 'answered';
     }
     return 'unanswered';

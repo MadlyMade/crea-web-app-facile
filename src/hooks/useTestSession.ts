@@ -155,16 +155,7 @@ export const useTestSession = () => {
       };
     });
 
-    // Show immediate feedback only in training mode
-    if (currentSession.type === 'training') {
-      toast({
-        title: isCorrect ? "Risposta corretta!" : "Risposta errata",
-        description: isCorrect 
-          ? "Ottimo lavoro!" 
-          : `La risposta corretta è: ${String.fromCharCode(65 + currentQuestion.correctAnswer)}`,
-        variant: isCorrect ? "default" : "destructive"
-      });
-    }
+    // No toast feedback - feedback will be shown in QuestionCard for training mode
 
     // Do NOT auto-advance - let user click Next button to advance
   }, [currentSession, currentQuestionIndex, setCurrentSession, toast]);

@@ -62,7 +62,7 @@ export const Test: React.FC = () => {
           onNext={handleNext}
           onPrevious={handlePrevious}
           selectedAnswer={currentSession.answers[currentQuestion.id]}
-          showFeedback={false} // No immediate feedback in UI - handled by toast
+          showFeedback={currentSession.type === 'training' && currentSession.answers[currentQuestion.id] !== undefined}
         />
       </div>
     </div>
